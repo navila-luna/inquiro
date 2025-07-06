@@ -28,8 +28,8 @@ const EMBEDDING_MODEL = 'text-embedding-004';
 type RawMessage = { id: string; sender: string; recipient: string; date: string; content: string };
 type RawThread = { id: string; subject: string; messages: RawMessage[] };
 
-// Type for the processor function result
-type ProcessorResult = LlmExtractionResult | null;
+// Type for the processor function result (unused since we made the function generic)
+type _ProcessorResult = LlmExtractionResult | null;
 
 // Helper function to delay execution
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -337,7 +337,7 @@ async function main() {
         try {
           const result = await embeddingModel.embedContent(text);
           return result.embedding as { values: number[] };
-        } catch (error) {
+        } catch (_error) {
           console.error(`❌ Failed to create embedding for text: ${text.substring(0, 100)}...`);
           return null;
         }
