@@ -1,0 +1,584 @@
+[
+  {
+    "id": "thread_1",
+    "subject": "Question about business expense deductions",
+    "messages": [
+      {
+        "id": "msg_1_1",
+        "sender": "charlie@startup.inc",
+        "recipient": "alice@combinely.co",
+        "date": "2023-10-26T10:00:00Z",
+        "content": "Hi Alice,\n\nQuick question: can I deduct the cost of my new office espresso machine as a business expense? It's for everyone in the office to use.\n\nThanks,\nCharlie"
+      },
+      {
+        "id": "msg_1_2",
+        "sender": "alice@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2023-10-26T11:30:00Z",
+        "content": "Hi Charlie,\n\nGood question! Yes, an espresso machine for the office is generally considered a fully deductible business expense under the de minimis safe harbor election. As long as it's used by employees to boost morale and productivity, it qualifies.\n\nJust make sure to keep the receipt for your records.\n\nBest,\nAlice"
+      }
+    ]
+  },
+  {
+    "id": "thread_2",
+    "subject": "Re: Q3 P&L Statement",
+    "messages": [
+      {
+        "id": "msg_2_1",
+        "sender": "diana@creative.llc",
+        "recipient": "bob@combinely.co",
+        "date": "2023-09-15T14:20:00Z",
+        "content": "Hi Bob,\n\nLooking at the Q3 P&L you sent over. I'm a bit confused about the 'Cost of Goods Sold' line item. It seems higher than I expected. Can you elaborate on what's included there?\n\nBest,\nDiana"
+      },
+      {
+        "id": "msg_2_2",
+        "sender": "bob@combinely.co",
+        "recipient": "diana@creative.llc",
+        "date": "2023-09-15T16:05:00Z",
+        "content": "Hi Diana,\n\nHappy to clarify. The COGS for Q3 is higher because it includes the one-time software license purchase for your design suite that we discussed last month. That was a significant, front-loaded cost.\n\nCould you please forward me the invoice for that purchase? I want to double-check its classification and ensure we're amortizing it correctly if applicable.\n\nThanks,\nBob"
+      },
+      {
+        "id": "msg_2_3",
+        "sender": "diana@creative.llc",
+        "recipient": "bob@combinely.co",
+        "date": "2023-09-15T16:15:00Z",
+        "content": "Ah, that makes sense. I forgot that landed in Q3. Forwarding the invoice now. Thanks!"
+      },
+      {
+        "id": "msg_2_4",
+        "sender": "bob@combinely.co",
+        "recipient": "diana@creative.llc",
+        "date": "2023-09-16T09:30:00Z",
+        "content": "Thanks, Diana. I've reviewed the invoice. It's correctly categorized. The cost is high for this quarter, but it's a one-off expense. Your gross margin should return to normal levels next quarter. Nothing to worry about."
+      }
+    ]
+  },
+  {
+    "id": "thread_3",
+    "subject": "Urgent: Tax payment deadline",
+    "messages": [
+      {
+        "id": "msg_3_1",
+        "sender": "eve@soloconsulting.biz",
+        "recipient": "alice@combinely.co",
+        "date": "2023-10-28T09:00:00Z",
+        "content": "Hi Alice, I just received a notice about an upcoming tax deadline for my city business license. I thought we had filed an extension for everything. Can you please look into this urgently?\n\nThanks,\nEve"
+      },
+      {
+        "id": "msg_3_2",
+        "sender": "alice@combinely.co",
+        "recipient": "eve@soloconsulting.biz",
+        "date": "2023-10-28T09:01:00Z",
+        "content": "I am currently out of the office with limited access to email. I will respond to your message upon my return on November 1st. For urgent matters, please contact my colleague Bob at bob@combinely.co."
+      },
+      {
+        "id": "msg_3_3",
+        "sender": "bob@combinely.co",
+        "recipient": "eve@soloconsulting.biz",
+        "date": "2023-10-28T09:45:00Z",
+        "content": "Hi Eve, Bob here. Alice is out of office and asked me to monitor her inbox for urgent requests.\n\nI've accessed your file. The notice you received is for a local city tax that isn't covered by the federal and state extensions we filed. This is a common point of confusion.\n\nI'll take care of the payment for you from the funds on account. No action needed on your part. I'll send confirmation once it's done.\n\nBest,\nBob"
+      },
+      {
+        "id": "msg_3_4",
+        "sender": "eve@soloconsulting.biz",
+        "recipient": "bob@combinely.co",
+        "date": "2023-10-28T10:00:00Z",
+        "content": "Phew, thanks Bob! You're a lifesaver. I appreciate the quick response."
+      }
+    ]
+  },
+  {
+    "id": "thread_4",
+    "subject": "taxes",
+    "messages": [
+      {
+        "id": "msg_4_1",
+        "sender": "charlie@startup.inc",
+        "recipient": "alice@combinely.co",
+        "date": "2023-11-05T18:00:00Z",
+        "content": "hey alice, how do i lower my taxes?"
+      },
+      {
+        "id": "msg_4_2",
+        "sender": "alice@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2023-11-06T10:00:00Z",
+        "content": "Hi Charlie,\n\nThat's a great goal! To give you the best advice, I need a bit more information. Are you thinking about lowering your corporate income tax, payroll taxes, or perhaps personal income tax related to the business?\n\nAlso, are you considering any large purchases or investments before the end of the year?\n\nLet me know.\nAlice"
+      },
+      {
+        "id": "msg_4_3",
+        "sender": "charlie@startup.inc",
+        "recipient": "alice@combinely.co",
+        "date": "2023-11-06T14:30:00Z",
+        "content": "Sorry for being vague. I was thinking about corporate income tax. We're considering buying new computer equipment for the team, around $15k worth. Would that help?"
+      },
+      {
+        "id": "msg_4_4",
+        "sender": "alice@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2023-11-07T11:00:00Z",
+        "content": "Thanks for clarifying. Purchasing the new equipment before the end of the year could be a great strategy. Thanks to Section 179, you can likely deduct the full purchase price from your gross income this year, which would lower your taxable income significantly.\n\nLet's schedule a brief call next week to discuss this and other potential strategies in more detail. I'll send over a calendar invite."
+      }
+    ]
+  },
+  {
+    "id": "thread_5",
+    "subject": "Quick questions for EOY",
+    "messages": [
+      {
+        "id": "msg_5_1",
+        "sender": "diana@creative.llc",
+        "recipient": "bob@combinely.co",
+        "date": "2023-12-01T11:00:00Z",
+        "content": "Hi Bob,\n\nHope you're well. I have a few year-end questions:\n1. What's the deadline for S-Corp 401(k) contributions for 2023?\n2. Can I pay my husband a salary for some part-time marketing work he did for the LLC? He's not an official employee.\n3. I'm thinking of switching from Quickbooks to another accounting software. Any recommendations?\n\nThanks!\nDiana"
+      },
+      {
+        "id": "msg_5_2",
+        "sender": "bob@combinely.co",
+        "recipient": "diana@creative.llc",
+        "date": "2023-12-01T15:30:00Z",
+        "content": "Hi Diana,\n\nGreat questions. Here are the answers:\n\n1.  **401(k) Contributions:** For an S-Corp, employee contributions must be made by Dec 31, 2023. Employer contributions can be made up until the tax filing deadline in 2024 (including extensions).\n2.  **Paying your husband:** Yes, you can pay him a salary as an independent contractor. It's important that the compensation is reasonable for the work performed and that you issue him a 1099-NEC form at the end of the year. We can help with that.\n3.  **Accounting Software:** Many of our clients have been happy with Xero as an alternative to Quickbooks. It has a clean interface and robust features. We could also explore Wave, which is a good free option for smaller businesses.\n\nLet me know if you'd like to discuss any of these further.\n\nBest,\nBob"
+      }
+    ]
+  },
+  {
+    "id": "thread_6",
+    "subject": "Question about my home office and other things",
+    "messages": [
+      {
+        "id": "msg_6_1",
+        "sender": "eve@soloconsulting.biz",
+        "recipient": "alice@combinely.co",
+        "date": "2023-07-10T13:00:00Z",
+        "content": "Hi Alice, I'm setting up my home office. Can I deduct a portion of my rent? My apartment is 800 sq ft and my office space is 120 sq ft. Also, totally unrelated, my son is starting college next year, are there any tax credits for tuition? Thanks, Eve"
+      },
+      {
+        "id": "msg_6_2",
+        "sender": "alice@combinely.co",
+        "recipient": "eve@soloconsulting.biz",
+        "date": "2023-07-11T09:45:00Z",
+        "content": "Hi Eve,\n\nLet's tackle these one by one.\n\nFor your home office, yes, you can deduct expenses for the portion of your home used exclusively and regularly for business. Based on your numbers (120/800 sq ft), you can deduct 15% of your direct home expenses like rent, utilities, and renter's insurance. Make sure you keep detailed records.\n\nRegarding college tuition, that falls under personal tax planning. While our firm primarily handles your business accounting, I can tell you that you should look into the American Opportunity Tax Credit (AOTC) and the Lifetime Learning Credit (LLC). You may need to consult with a personal tax advisor for specifics on your eligibility.\n\nHope this helps!\nAlice"
+      }
+    ]
+  },
+  {
+    "id": "thread_7",
+    "subject": "Fwd: Expense report Q3",
+    "messages": [
+      {
+        "id": "msg_7_1",
+        "sender": "charlie@startup.inc",
+        "recipient": "bob@combinely.co",
+        "date": "2023-10-24T15:20:00Z",
+        "content": "Hi Bob, Please see below. Can you get this reimbursed for Sarah?\n\n\n---------- Forwarded message ---------\nFrom: Sarah (Startup Inc.) <sarah@startup.inc>\nDate: Tue, Oct 24, 2023 at 3:15 PM\nSubject: Expense report Q3\nTo: Charlie <charlie@startup.inc>\n\nHi Charlie,\n\nPlease see attached for my Q3 expense report. It's mostly for travel to the tech conference in Austin.\n\nThanks,\nSarah"
+      },
+      {
+        "id": "msg_7_2",
+        "sender": "bob@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2023-10-24T15:25:00Z",
+        "content": "Hi Charlie,\n\nThanks for forwarding this. I don't see an attachment here. The original attachment wasn't included in the forwarded message.\n\nCould you please forward the email again, but this time, download the attachment from Sarah's email and attach it to your message to me? I'll process it as soon as I receive the file.\n\nBest,\nBob"
+      }
+    ]
+  },
+  {
+    "id": "thread_8",
+    "subject": "Company Car Depreciation",
+    "messages": [
+      {
+        "id": "msg_8_1",
+        "sender": "frank@gearhead.io",
+        "recipient": "alice@combinely.co",
+        "date": "2023-11-10T11:00:00Z",
+        "content": "Hi Alice, I bought a new Ford F-150 for the business. How do I handle depreciation on it? Can I write it all off this year?"
+      },
+      {
+        "id": "msg_8_2",
+        "sender": "alice@combinely.co",
+        "recipient": "frank@gearhead.io",
+        "date": "2023-11-10T14:20:00Z",
+        "content": "Hi Frank, That's a great question. Because the F-150 has a gross vehicle weight rating (GVWR) over 6,000 pounds, it's considered a heavy vehicle and qualifies for more favorable depreciation rules. You can likely take 100% bonus depreciation and write off the entire cost this year, assuming it's used more than 50% for business. This is a significant advantage over lighter passenger vehicles."
+      }
+    ]
+  },
+  {
+    "id": "thread_9",
+    "subject": "R&D Tax Credits",
+    "messages": [
+      {
+        "id": "msg_9_1",
+        "sender": "charlie@startup.inc",
+        "recipient": "bob@combinely.co",
+        "date": "2023-11-12T10:00:00Z",
+        "content": "Hey Bob, we've been doing a ton of development work on our new platform. I've heard about R&D tax credits. Is that something we could qualify for?"
+      },
+      {
+        "id": "msg_9_2",
+        "sender": "bob@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2023-11-13T16:30:00Z",
+        "content": "Hi Charlie, It's very possible. The R&D credit isn't just for scientists in lab coats. If you're developing new or improved products or processes, and there was technical uncertainty at the outset, your activities might qualify. We'd need to document the projects, the employee time spent, and the associated costs. Let's set up a call to walk through the 'four-part test' to see if your work fits the criteria."
+      }
+    ]
+  },
+  {
+    "id": "thread_10",
+    "subject": "Hiring a foreign employee",
+    "messages": [
+      {
+        "id": "msg_10_1",
+        "sender": "diana@creative.llc",
+        "recipient": "alice@combinely.co",
+        "date": "2023-11-14T09:30:00Z",
+        "content": "Hi Alice, we're looking to hire a talented designer from Canada. We'll have to sponsor her visa. Are the legal and filing fees for that a deductible business expense?"
+      },
+      {
+        "id": "msg_10_2",
+        "sender": "alice@combinely.co",
+        "recipient": "diana@creative.llc",
+        "date": "2023-11-14T11:00:00Z",
+        "content": "Hi Diana, Yes, absolutely. The legal and filing fees associated with securing a work visa (like a TN visa for Canadians) for an employee are considered an ordinary and necessary business expense, so they are fully deductible."
+      }
+    ]
+  },
+  {
+    "id": "thread_11",
+    "subject": "Switching from Sole Prop to LLC",
+    "messages": [
+      {
+        "id": "msg_11_1",
+        "sender": "eve@soloconsulting.biz",
+        "recipient": "bob@combinely.co",
+        "date": "2023-11-15T13:00:00Z",
+        "content": "Hi Bob, I'm planning to convert my sole proprietorship to a single-member LLC for better legal protection. What are the tax implications? Will my filing change much?"
+      },
+      {
+        "id": "msg_11_2",
+        "sender": "bob@combinely.co",
+        "recipient": "eve@soloconsulting.biz",
+        "date": "2023-11-15T15:00:00Z",
+        "content": "Hi Eve, that's a smart move for liability. For federal tax purposes, a single-member LLC is a 'disregarded entity' by default. This means you'll continue to report your business income and expenses on a Schedule C with your personal 1040 tax return, just like you did as a sole proprietor. The main change is legal, not tax-related, though some states do have separate LLC fees or taxes we should check on."
+      }
+    ]
+  },
+  {
+    "id": "thread_12",
+    "subject": "Missed Estimated Tax Payment",
+    "messages": [
+      {
+        "id": "msg_12_1",
+        "sender": "frank@gearhead.io",
+        "recipient": "alice@combinely.co",
+        "date": "2023-09-20T10:00:00Z",
+        "content": "Hi Alice, I completely forgot to make my Q3 estimated tax payment. Am I in big trouble? What should I do?"
+      },
+      {
+        "id": "msg_12_2",
+        "sender": "alice@combinely.co",
+        "recipient": "frank@gearhead.io",
+        "date": "2023-09-20T10:30:00Z",
+        "content": "Hi Frank, No, don't worry, this happens. The best thing to do is make the payment as soon as you can. The IRS may charge a small underpayment penalty, but it's calculated based on how much you underpaid and for how long, so paying it now will minimize that. I can help you calculate the amount and get it paid today."
+      }
+    ]
+  },
+  {
+    "id": "thread_13",
+    "subject": "Health Insurance Premiums",
+    "messages": [
+      {
+        "id": "msg_13_1",
+        "sender": "eve@soloconsulting.biz",
+        "recipient": "bob@combinely.co",
+        "date": "2023-11-16T14:00:00Z",
+        "content": "Hi Bob, I pay for my own health insurance through the marketplace. Can I deduct those premiums?"
+      },
+      {
+        "id": "msg_13_2",
+        "sender": "bob@combinely.co",
+        "recipient": "eve@soloconsulting.biz",
+        "date": "2023-11-16T16:30:00Z",
+        "content": "Hi Eve, Yes, as a self-employed individual, you can generally deduct 100% of the health and dental insurance premiums you pay for yourself, your spouse, and dependents. It's an 'above-the-line' deduction on your Form 1040, which is great because you don't have to itemize to claim it."
+      }
+    ]
+  },
+  {
+    "id": "thread_14",
+    "subject": "Charitable Donations",
+    "messages": [
+      {
+        "id": "msg_14_1",
+        "sender": "diana@creative.llc",
+        "recipient": "alice@combinely.co",
+        "date": "2023-11-17T11:00:00Z",
+        "content": "Hi Alice, my LLC made a $2,500 donation to a local animal shelter. Can the business deduct this?"
+      },
+      {
+        "id": "msg_14_2",
+        "sender": "alice@combinely.co",
+        "recipient": "diana@creative.llc",
+        "date": "2023-11-17T14:00:00Z",
+        "content": "Hi Diana, That's great! Since your LLC is a pass-through entity, the deduction for the charitable contribution isn't taken on the business return. Instead, it gets passed through to you to be reported on your personal tax return (Schedule A), assuming you itemize deductions. Please make sure you have the official acknowledgment letter from the shelter for our records."
+      }
+    ]
+  },
+  {
+    "id": "thread_15",
+    "subject": "Sales Tax Nexus Question",
+    "messages": [
+      {
+        "id": "msg_15_1",
+        "sender": "charlie@startup.inc",
+        "recipient": "bob@combinely.co",
+        "date": "2023-11-20T10:00:00Z",
+        "content": "Hi Bob, we are based in California but just had a huge month of sales to customers in Texas. Do we need to start collecting sales tax there?"
+      },
+      {
+        "id": "msg_15_2",
+        "sender": "bob@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2023-11-20T15:00:00Z",
+        "content": "Hi Charlie, That's a great problem to have. You've likely hit what's called 'economic nexus' in Texas. Most states have a threshold, often $100,000 in sales or 200 transactions in a year. We need to check the exact threshold for Texas. If you've crossed it, we'll need to register you with the Texas Comptroller and begin collecting and remitting sales tax on future sales."
+      }
+    ]
+  },
+  {
+    "id": "thread_16",
+    "subject": "Confusing 1099-K from Stripe",
+    "messages": [
+      {
+        "id": "msg_16_1",
+        "sender": "eve@soloconsulting.biz",
+        "recipient": "alice@combinely.co",
+        "date": "2024-01-25T09:00:00Z",
+        "content": "Hi Alice, I got a 1099-K from Stripe saying they processed $92,000 for me last year, but my records show my revenue was closer to $88,000. Why don't they match?"
+      },
+      {
+        "id": "msg_16_2",
+        "sender": "alice@combinely.co",
+        "recipient": "eve@soloconsulting.biz",
+        "date": "2024-01-25T11:30:00Z",
+        "content": "Hi Eve, This is a very common point of confusion. The 1099-K reports your GROSS transaction volume. This number includes things like customer refunds you issued and the processing fees Stripe deducted. Your accounting records correctly show your NET revenue. We will use your actual revenue figures for your tax return and reconcile the difference. You are only taxed on your actual business income."
+      }
+    ]
+  },
+  {
+    "id": "thread_17",
+    "subject": "S-Corp Salary",
+    "messages": [
+      {
+        "id": "msg_17_1",
+        "sender": "diana@creative.llc",
+        "recipient": "bob@combinely.co",
+        "date": "2023-12-05T14:00:00Z",
+        "content": "Hi Bob, now that my company is an S-Corp, how much do I need to pay myself in salary? To save on payroll taxes, can't I just take everything as a profit distribution?"
+      },
+      {
+        "id": "msg_17_2",
+        "sender": "bob@combinely.co",
+        "recipient": "diana@creative.llc",
+        "date": "2023-12-05T17:00:00Z",
+        "content": "Hi Diana, it's crucial that you pay yourself a 'reasonable compensation' as a formal W-2 salary before you take any distributions. The IRS is very strict about this. Taking too little salary is a major red flag. We need to determine a reasonable salary based on your role, experience, and what others in your industry earn. After paying that salary, you can take the remaining profit as a distribution, which is not subject to self-employment taxes."
+      }
+    ]
+  },
+  {
+    "id": "thread_18",
+    "subject": "Lost receipt for client dinner",
+    "messages": [
+      {
+        "id": "msg_18_1",
+        "sender": "charlie@startup.inc",
+        "recipient": "alice@combinely.co",
+        "date": "2023-11-21T12:00:00Z",
+        "content": "Alice, I can't find the receipt for a big client dinner from last month. It was about $500. Can I still deduct it?"
+      },
+      {
+        "id": "msg_18_2",
+        "sender": "alice@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2023-11-21T14:30:00Z",
+        "content": "Hi Charlie, while a receipt is always best, you might still be able to claim it. Do you have a credit card statement showing the transaction? If so, you should make a written record with the date, location, the business purpose of the dinner, and who attended. The more detailed your record, the stronger your position if you're ever questioned. For the future, I highly recommend using a receipt capture app to avoid this."
+      }
+    ]
+  },
+  {
+    "id": "thread_19",
+    "subject": "Business Use of Personal Vehicle",
+    "messages": [
+      {
+        "id": "msg_19_1",
+        "sender": "eve@soloconsulting.biz",
+        "recipient": "bob@combinely.co",
+        "date": "2023-11-22T09:00:00Z",
+        "content": "Hi Bob, I use my personal car for client meetings. Is it better to track my mileage or all my actual car expenses?"
+      },
+      {
+        "id": "msg_19_2",
+        "sender": "bob@combinely.co",
+        "recipient": "eve@soloconsulting.biz",
+        "date": "2023-11-22T11:00:00Z",
+        "content": "Hi Eve, you have two choices. The standard mileage rate is simpler; you just track your business miles and multiply by the IRS rate. The actual expense method involves tracking the business percentage of all your car costs (gas, repairs, insurance, depreciation). For most people, the standard mileage rate is easier and often results in a similar deduction. However, if you have a newer, more expensive car or high maintenance costs, tracking actual expenses might be better. Either way, a detailed mileage log is essential."
+      }
+    ]
+  },
+  {
+    "id": "thread_20",
+    "subject": "Taxability of a Government Grant",
+    "messages": [
+      {
+        "id": "msg_20_1",
+        "sender": "charlie@startup.inc",
+        "recipient": "alice@combinely.co",
+        "date": "2023-11-28T10:00:00Z",
+        "content": "Hi Alice, we won a $25,000 state grant for our work in sustainable tech! Is this considered taxable income?"
+      },
+      {
+        "id": "msg_20_2",
+        "sender": "alice@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2023-11-28T14:00:00Z",
+        "content": "Hi Charlie, congrats, that's fantastic news! Generally, government grants received by a business are taxable. However, there can be exceptions depending on the specific terms of the grant and how the funds must be used. Could you forward me the grant award letter and any related documents? I'll need to review the conditions to give you a definitive answer."
+      }
+    ]
+  },
+  {
+    "id": "thread_21",
+    "subject": "Accepting Crypto Payments",
+    "messages": [
+      {
+        "id": "msg_21_1",
+        "sender": "frank@gearhead.io",
+        "recipient": "bob@combinely.co",
+        "date": "2023-11-29T11:00:00Z",
+        "content": "Bob, a customer wants to pay for a big repair job in Ethereum. If I accept it, how does that work for taxes? Is it like getting cash?"
+      },
+      {
+        "id": "msg_21_2",
+        "sender": "bob@combinely.co",
+        "recipient": "frank@gearhead.io",
+        "date": "2023-11-29T15:00:00Z",
+        "content": "Hi Frank, this is an important distinction. The IRS treats cryptocurrency as property, not currency. When you receive the Ethereum, you must record its fair market value in US dollars at that exact time as income. Then, if you continue to hold it and its value changes, you will have a separate capital gain or loss when you eventually sell it or convert it to dollars. It requires careful record-keeping."
+      }
+    ]
+  },
+  {
+    "id": "thread_22",
+    "subject": "Amending Last Year's Return",
+    "messages": [
+      {
+        "id": "msg_22_1",
+        "sender": "diana@creative.llc",
+        "recipient": "alice@combinely.co",
+        "date": "2024-02-01T10:00:00Z",
+        "content": "Hi Alice, while organizing my files, I found a large invoice from a freelancer that I completely forgot to give you for last year's taxes. Is it too late to deduct that expense?"
+      },
+      {
+        "id": "msg_22_2",
+        "sender": "alice@combinely.co",
+        "recipient": "diana@creative.llc",
+        "date": "2024-02-01T11:30:00Z",
+        "content": "Hi Diana, not at all! We can file an amended tax return for that year using Form 1040-X. This will allow us to include the additional expense, and it will likely result in a tax refund for you. You generally have up to three years to file an amendment. Just send me a copy of the invoice and we'll take care of it."
+      }
+    ]
+  },
+  {
+    "id": "thread_23",
+    "subject": "International Sales - VAT?",
+    "messages": [
+      {
+        "id": "msg_23_1",
+        "sender": "charlie@startup.inc",
+        "recipient": "bob@combinely.co",
+        "date": "2024-02-05T14:00:00Z",
+        "content": "Bob, we just signed up a customer in the UK for our software. Do we have to deal with British taxes like VAT?"
+      },
+      {
+        "id": "msg_23_2",
+        "sender": "bob@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2024-02-05T17:00:00Z",
+        "content": "Hi Charlie, yes, selling digital services to customers in the UK means you have to consider UK VAT. The rules for digital services are specific. You'll likely need to register for VAT with the UK's HMRC, charge VAT on your sales to UK consumers, and file regular VAT returns. It's a process we can help you navigate."
+      }
+    ]
+  },
+  {
+    "id": "thread_24",
+    "subject": "Retirement plan for employees",
+    "messages": [
+      {
+        "id": "msg_24_1",
+        "sender": "diana@creative.llc",
+        "recipient": "alice@combinely.co",
+        "date": "2023-12-10T11:00:00Z",
+        "content": "Hi Alice, I want to start offering retirement benefits to my small team. What's a simple and effective option to set up?"
+      },
+      {
+        "id": "msg_24_2",
+        "sender": "alice@combinely.co",
+        "recipient": "diana@creative.llc",
+        "date": "2023-12-10T15:00:00Z",
+        "content": "Hi Diana, for a business your size, a SIMPLE IRA is an excellent choice. They are inexpensive to administer and easy to understand. You would be required to make a contribution for your employees, either by matching their contributions up to 3% of their pay, or by contributing 2% of pay for all eligible employees. It's a great tool for retention."
+      }
+    ]
+  },
+  {
+    "id": "thread_25",
+    "subject": "Tax implications of business loan",
+    "messages": [
+      {
+        "id": "msg_25_1",
+        "sender": "frank@gearhead.io",
+        "recipient": "bob@combinely.co",
+        "date": "2023-08-15T10:00:00Z",
+        "content": "Hi Bob, I just got a $50,000 loan to buy some new equipment. Is that $50k considered taxable income? And can I deduct the monthly payments?"
+      },
+      {
+        "id": "msg_25_2",
+        "sender": "bob@combinely.co",
+        "recipient": "frank@gearhead.io",
+        "date": "2023-08-15T14:30:00Z",
+        "content": "Hi Frank, good questions. The $50,000 loan proceeds are not taxable income. Regarding the payments, it's a mix. You cannot deduct the portion of the payment that is repaying the loan principal. However, the interest portion of your payments is fully deductible as a business expense."
+      }
+    ]
+  },
+  {
+    "id": "thread_26",
+    "subject": "FIFO vs LIFO",
+    "messages": [
+      {
+        "id": "msg_26_1",
+        "sender": "charlie@startup.inc",
+        "recipient": "alice@combinely.co",
+        "date": "2024-01-20T11:00:00Z",
+        "content": "Hi Alice, we're holding some inventory for the first time. I see terms like FIFO and LIFO for inventory accounting. What do they mean and which should we use?"
+      },
+      {
+        "id": "msg_26_2",
+        "sender": "alice@combinely.co",
+        "recipient": "charlie@startup.inc",
+        "date": "2024-01-20T15:00:00Z",
+        "content": "Hi Charlie, FIFO stands for 'First-In, First-Out,' meaning you assume you sell your oldest inventory first. LIFO is 'Last-In, First-Out,' assuming you sell your newest inventory first. In times of rising prices, LIFO can result in a lower taxable income, but it's more complex and less common. For a tech business, FIFO is almost always the better, more logical choice as it better reflects the actual flow of goods."
+      }
+    ]
+  },
+  {
+    "id": "thread_27",
+    "subject": "Question about my bill",
+    "messages": [
+      {
+        "id": "msg_27_1",
+        "sender": "eve@soloconsulting.biz",
+        "recipient": "bob@combinely.co",
+        "date": "2024-01-15T13:00:00Z",
+        "content": "Hi Bob, I was looking at my quarterly invoice from you and had a question. What does the 'Quarterly Bookkeeping Review' line item cover?"
+      },
+      {
+        "id": "msg_27_2",
+        "sender": "bob@combinely.co",
+        "recipient": "eve@soloconsulting.biz",
+        "date": "2024-01-15T15:30:00Z",
+        "content": "Hi Eve, certainly. The 'Quarterly Bookkeeping Review' is our service where we meticulously go through your books for the prior three months. We categorize all transactions, reconcile your bank and credit card statements against your records, and make any necessary adjustments to ensure everything is accurate. This process is what allows us to produce reliable financial statements for you."
+      }
+    ]
+  }
+]

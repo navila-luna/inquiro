@@ -1,0 +1,90 @@
+// prisma/schema.prisma
+
+// This block tells Prisma to generate the TypeScript client
+generator client {
+  provider = "prisma-client-js"
+}
+
+// This block points to your database connection URL in the .env file
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Stores unique users involved in the conversations
+model User {
+  id    String @id @default(cuid())
+  email String @unique
+
+  // Relation: A user can be the author of many messages
+  messages Message[]
+}
+
+// Stores information about each email thread
+model Thread {
+  id      String @id
+  subject String
+
+  // Relation: A thread contains many messages
+  messages Message[]
+}
+
+// Stores individual email messages for citation
+model Message {
+  id                String   @id @default(cuid())
+  originalMessageId String   @unique // The ID from the source JSON for mapping
+  content           String   @db.Text
+  sentAt            DateTime
+
+  // Relation to the Thread it belongs to
+  thread   Thread @relation(fields: [threadId], references: [id])
+  threadId String
+
+  // Relation to the User who sent it
+  author   User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  // Relation: This message can be a source for many knowledge pairs (via junction table)
+  knowledgePairSources KnowledgePairSource[]
+}
+
+// Junction table for many-to-many relationship between Message and KnowledgePair
+model KnowledgePairSource {
+  id             String @id @default(cuid())
+  
+  // Relations
+  message        Message       @relation(fields: [messageId], references: [id])
+  messageId      String
+  knowledgePair  KnowledgePair @relation(fields: [knowledgePairId], references: [id])
+  knowledgePairId String
+
+  @@unique([messageId, knowledgePairId])
+}
+
+// Stores the extracted Q&A knowledge nuggets
+model KnowledgePair {
+  id       String @id @default(cuid())
+  question String @db.Text
+  answer   String @db.Text
+
+  // Relation: Links back to the source messages for citations (via junction table)
+  sourceMessages KnowledgePairSource[]
+
+  // Relations for the knowledge graph
+  sourceEdges KnowledgeEdge[] @relation("SourcePairs")
+  targetEdges KnowledgeEdge[] @relation("TargetPairs")
+}
+
+// Stores the relationships between knowledge pairs (the graph)
+model KnowledgeEdge {
+  id               String @id @default(cuid())
+  relationshipType String // e.g., "CLARIFIES", "EXPANDS_ON"
+
+  // Relation to the "from" knowledge pair
+  sourcePair   KnowledgePair @relation("SourcePairs", fields: [sourcePairId], references: [id])
+  sourcePairId String
+
+  // Relation to the "to" knowledge pair
+  targetPair   KnowledgePair @relation("TargetPairs", fields: [targetPairId], references: [id])
+  targetPairId String
+}
