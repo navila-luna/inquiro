@@ -28,19 +28,21 @@ const EMBEDDING_MODEL = 'text-embedding-004';
 type RawMessage = { id: string; sender: string; recipient: string; date: string; content: string };
 type RawThread = { id: string; subject: string; messages: RawMessage[] };
 
+// Type for the processor function result
+type ProcessorResult = LlmExtractionResult | null;
 
 // Helper function to delay execution
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Helper function to process with rate limiting
 // 4 seconds between requests (15 per minute = 4 seconds each)
-async function processWithRateLimit<T>(
+async function processWithRateLimit<T, R>(
   items: T[],
-  processor: (item: T, index: number) => Promise<any>,
+  processor: (item: T, index: number) => Promise<R>,
   delayMs: number = 4000,
   batchSize: number = 1
-): Promise<any[]> {
-  const results = [];
+): Promise<R[]> {
+  const results: R[] = [];
   
   for (let i = 0; i < items.length; i += batchSize) {
     const batch = items.slice(i, i + batchSize);
@@ -57,9 +59,11 @@ async function processWithRateLimit<T>(
         if (index < items.length - 1) {
           await delay(delayMs);
         }
-      } catch (error: any) {
-        console.error(`❌ Failed to process item ${index}:`, error.message);
-        results.push(null);
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.error(`❌ Failed to process item ${index}:`, errorMessage);
+        // For embeddings, we'll push null and filter later
+        results.push(null as R);
       }
     }
   }
@@ -100,7 +104,7 @@ async function main() {
       
       const allExtractions = await processWithRateLimit(
         threadsToProcess,
-        async (thread: RawThread, index: number) => {
+        async (thread: RawThread, _index: number) => {
           const formattedThread = thread.messages
             .map((msg) => `From: ${msg.sender}\nTo: ${msg.recipient}\nDate: ${msg.date}\nMessage ID: ${msg.id}\n\n${msg.content}`)
             .join('\n\n---\n\n');
@@ -171,11 +175,11 @@ async function main() {
     const threadsToProcess = SKIP_API_CALLS ? rawThreads.slice(0, 1) : rawThreads.slice(0, 5);
 
     // Create Users, Threads, and Messages
-    const userEmails = new Set<string>(threadsToProcess.flatMap((t: any) => t.messages.flatMap((m: any) => [m.sender, m.recipient])));
+    const userEmails = new Set<string>(threadsToProcess.flatMap((t: RawThread) => t.messages.flatMap((m: RawMessage) => [m.sender, m.recipient])));
     await prisma.user.createMany({ data: Array.from(userEmails).map((email) => ({ email })) });
     
     const users = await prisma.user.findMany();
-    const userEmailToIdMap = new Map(users.map((u: any) => [u.email, u.id]));
+    const userEmailToIdMap = new Map(users.map((u) => [u.email, u.id]));
 
     for (const thread of threadsToProcess) {
       await prisma.thread.create({ data: { id: thread.id, subject: thread.subject }});
@@ -193,7 +197,7 @@ async function main() {
     }
     
     const messages = await prisma.message.findMany();
-    const originalMsgIdToDbIdMap = new Map(messages.map((m: any) => [m.originalMessageId, m.id]));
+    const originalMsgIdToDbIdMap = new Map(messages.map((m) => [m.originalMessageId, m.id]));
     
     // Create KnowledgePairs and Edges
     const tempKpIdToDbIdMap = new Map<string, string>();
@@ -264,8 +268,9 @@ async function main() {
             indexExists = true; // Proceed anyway
           }
         }
-      } catch (error: any) {
-        if (error.status === 404 || error.message?.includes('404')) {
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        if (errorMessage.includes('404') || errorMessage.includes('404')) {
           console.log(`   -> 🔨 Index '${PINECONE_INDEX_NAME}' does not exist, creating it...`);
           try {
           /* 
@@ -297,7 +302,7 @@ async function main() {
                   break;
                 }
                 console.log(`   -> ⏳ Still waiting... (${i + 1}/12)`);
-              } catch (waitError: any) {
+              } catch (_waitError: unknown) {
                 console.log(`   -> ⏳ Still initializing... (${i + 1}/12)`);
               }
             }
@@ -305,18 +310,19 @@ async function main() {
               console.log('   -> ⚠️ Index creation is taking longer than expected, proceeding anyway...');
               indexExists = true;
             }
-          } catch (createError: any) {
-            console.error(`   -> ❌ Index creation failed: ${createError.message}`);
+          } catch (createError: unknown) {
+            const createErrorMessage = createError instanceof Error ? createError.message : String(createError);
+            console.error(`   -> ❌ Index creation failed: ${createErrorMessage}`);
             throw createError;
           }
         } else {
-          console.error(`   -> ❌ Unexpected error checking index: ${error.message}`);
+          console.error(`   -> ❌ Unexpected error checking index: ${errorMessage}`);
           throw error;
         }
       }
     
     const knowledgePairsFromDb = await prisma.knowledgePair.findMany();
-    const textsToEmbed = knowledgePairsFromDb.map((kp: any) => `Question: ${kp.question}\nAnswer: ${kp.answer}`);
+    const textsToEmbed = knowledgePairsFromDb.map((kp) => `Question: ${kp.question}\nAnswer: ${kp.answer}`);
     
     console.log(`   -> ✍️ Creating embeddings for ${textsToEmbed.length} knowledge pairs...`);
     
@@ -324,12 +330,13 @@ async function main() {
     const embeddingModel = genAI.getGenerativeModel({ model: EMBEDDING_MODEL });
     
     // 4 seconds delay between requests, processing one at a time to avoid going above quota
-    const embeddings = await processWithRateLimit(
+    type EmbeddingResult = { values: number[] } | null;
+    const embeddings = await processWithRateLimit<string, EmbeddingResult>(
       textsToEmbed,
-      async (text: string, index: number) => {
+      async (text: string, _index: number) => {
         try {
           const result = await embeddingModel.embedContent(text);
-          return result.embedding;
+          return result.embedding as { values: number[] };
         } catch (error) {
           console.error(`❌ Failed to create embedding for text: ${text.substring(0, 100)}...`);
           return null;
