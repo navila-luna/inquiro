@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const knowledgePairId = params.id;
+    const { id: knowledgePairId } = await params;
 
     // Get the knowledge pair and its source messages
     const knowledgePair = await prisma.knowledgePair.findUnique({
