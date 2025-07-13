@@ -9,7 +9,8 @@
     "lint": "next lint",
     "db:seed": "tsx src/app/scripts/seed.ts",
     "db:seed:mock": "SKIP_API_CALLS=true tsx src/app/scripts/seed.ts",
-    "db:seed:local": "SKIP_API_CALLS=true SKIP_PINECONE=true tsx src/app/scripts/seed.ts"
+    "db:seed:local": "SKIP_API_CALLS=true SKIP_PINECONE=true tsx src/app/scripts/seed.ts",
+    "db:seed:force": "FORCE_RESET=true tsx src/app/scripts/seed.ts"
   },
   "dependencies": {
     "@google/genai": "^1.0.0",

@@ -83,6 +83,9 @@ async function main() {
     console.log(`📄 Read ${rawThreads.length} threads from emails.json`);
     
 
+    // Check if data already exists (needed for both extraction and database population)
+    const existingData = await prisma.knowledgePair.count();
+    
     // 2. EXTRACT KNOWLEDGE USING GOOGLE'S GEMINI (WITH RATE LIMITING)
     let validExtractions: LlmExtractionResult[];
     
@@ -96,11 +99,36 @@ async function main() {
       
       /* 
           Process a limited number of threads to avoid quota issues.
-          We'll process 5 threads which should give us good coverage without hitting limits.
+          We'll process different threads each time to build variety in the knowledge base.
           TODO: Add a layer of caching to avoid re-extracting the same knowledge pairs.
       */
-      const threadsToProcess = rawThreads.slice(0, 5);
-      console.log(`📝 Processing ${threadsToProcess.length} threads (limited for quota management)`);
+      // Use the same thread selection logic as database population
+      let threadsToProcess: RawThread[];
+      
+      if (existingData > 0) {
+        // If data exists, select different threads for variety
+        const allThreads = rawThreads;
+        const existingThreads = await prisma.thread.findMany({
+          select: { id: true }
+        });
+        const existingThreadIds = new Set(existingThreads.map(t => t.id));
+        const availableThreads = allThreads.filter(thread => 
+          !existingThreadIds.has(thread.id)
+        );
+        
+        if (availableThreads.length === 0) {
+          console.log('   -> ⚠️ All threads have been processed for extraction. Consider using FORCE_RESET=true to start fresh.');
+          return;
+        }
+        
+        const threadsToSelect = Math.min(5, availableThreads.length);
+        threadsToProcess = availableThreads.slice(0, threadsToSelect);
+        console.log(`📝 Processing ${threadsToProcess.length} new threads for extraction (avoiding quota limits)`);
+      } else {
+        // If no data exists, use the original logic
+        threadsToProcess = rawThreads.slice(0, 5);
+        console.log(`📝 Processing ${threadsToProcess.length} threads (limited for quota management)`);
+      }
       
       const allExtractions = await processWithRateLimit(
         threadsToProcess,
@@ -162,17 +190,66 @@ async function main() {
     // 3. POPULATE POSTGRESQL DATABASE
     console.log('🐘 Populating PostgreSQL database...');
     
-    // Clear all existing data first
-    console.log('   -> 🗑️ Clearing old data...');
-    await prisma.knowledgeEdge.deleteMany();
-    await prisma.knowledgePairSource.deleteMany();
-    await prisma.knowledgePair.deleteMany();
-    await prisma.message.deleteMany();
-    await prisma.thread.deleteMany();
-    await prisma.user.deleteMany();
+    // existingData is already declared above
+    
+    if (existingData > 0) {
+      console.log(`   -> 📊 Found ${existingData} existing knowledge pairs`);
+      const shouldClear = process.env.FORCE_RESET === 'true';
+      
+      if (shouldClear) {
+        console.log('   -> 🗑️ Clearing old data (FORCE_RESET=true)...');
+        await prisma.knowledgeEdge.deleteMany();
+        await prisma.knowledgePairSource.deleteMany();
+        await prisma.knowledgePair.deleteMany();
+        await prisma.message.deleteMany();
+        await prisma.thread.deleteMany();
+        await prisma.user.deleteMany();
+      } else {
+        console.log('   -> ⏭️ Skipping database population (data exists, use FORCE_RESET=true to clear)');
+        return;
+      }
+    } else {
+      console.log('   -> 🆕 No existing data found, proceeding with fresh population');
+    }
 
     // Determine which threads to process for database population
-    const threadsToProcess = SKIP_API_CALLS ? rawThreads.slice(0, 1) : rawThreads.slice(0, 5);
+    let threadsToProcess: RawThread[];
+    
+    if (existingData > 0) {
+      // If data exists, select different threads for variety
+      console.log('   -> 🎲 Selecting different threads for variety...');
+      
+      // Get all available threads
+      const allThreads = rawThreads;
+      
+      // Get threads that have already been processed (by checking existing thread IDs)
+      const existingThreads = await prisma.thread.findMany({
+        select: { id: true }
+      });
+      const existingThreadIds = new Set(existingThreads.map(t => t.id));
+      
+      // Filter out already processed threads
+      const availableThreads = allThreads.filter(thread => 
+        !existingThreadIds.has(thread.id)
+      );
+      
+      console.log(`   -> 📊 Found ${availableThreads.length} unprocessed threads out of ${allThreads.length} total`);
+      
+      if (availableThreads.length === 0) {
+        console.log('   -> ⚠️ All threads have been processed. Consider using FORCE_RESET=true to start fresh.');
+        return;
+      }
+      
+      // Select up to 5 different threads, or all available if less than 5
+      const threadsToSelect = Math.min(5, availableThreads.length);
+      threadsToProcess = availableThreads.slice(0, threadsToSelect);
+      
+      console.log(`   -> 🎯 Selected ${threadsToProcess.length} new threads for processing`);
+    } else {
+      // If no data exists, use the original logic
+      threadsToProcess = SKIP_API_CALLS ? rawThreads.slice(0, 1) : rawThreads.slice(0, 5);
+      console.log(`   -> 🆕 Processing ${threadsToProcess.length} threads (fresh database)`);
+    }
 
     // Create Users, Threads, and Messages
     const userEmails = new Set<string>(threadsToProcess.flatMap((t: RawThread) => t.messages.flatMap((m: RawMessage) => [m.sender, m.recipient])));
@@ -201,8 +278,29 @@ async function main() {
     
     // Create KnowledgePairs and Edges
     const tempKpIdToDbIdMap = new Map<string, string>();
+    
+    // Get existing knowledge pairs to check for duplicates
+    const existingKnowledgePairs = await prisma.knowledgePair.findMany({
+      select: { question: true, answer: true }
+    });
+    
+    console.log(`   -> 🔍 Checking for duplicate knowledge (${existingKnowledgePairs.length} existing pairs)`);
+    
     for (const extraction of validExtractions) {
       for (const kp of extraction.knowledgePairs) {
+        // Check if this knowledge pair already exists (by content, not ID)
+        const isDuplicate = existingKnowledgePairs.some(existing => 
+          existing.question.toLowerCase().trim() === kp.question.toLowerCase().trim() &&
+          existing.answer.toLowerCase().trim() === kp.answer.toLowerCase().trim()
+        );
+        
+        if (isDuplicate) {
+          console.log(`   -> ⚠️ Skipping duplicate: "${kp.question.substring(0, 50)}..."`);
+          continue;
+        }
+        
+        console.log(`   -> ✅ Adding new knowledge: "${kp.question.substring(0, 50)}..."`);
+        
         const newKp = await prisma.knowledgePair.create({
           data: {
             question: kp.question,
@@ -234,6 +332,11 @@ async function main() {
         })
       }
     }
+    
+    // Summary of what was added
+    const totalKnowledgePairs = await prisma.knowledgePair.count();
+    const newKnowledgePairs = totalKnowledgePairs - existingData;
+    console.log(`   -> 📊 Summary: Added ${newKnowledgePairs} new knowledge pairs (${totalKnowledgePairs} total)`);
     console.log('PostgreSQL populated successfully.');
 
     // 4. POPULATE PINECONE VECTOR DATABASE
