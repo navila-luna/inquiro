@@ -40,13 +40,23 @@ npm run db:seed:force
 - 🆕 **Processes first 5 threads**
 - 🔄 **Complete fresh start**
 
-#### 3. Mock Mode (Skips Gemini API)
+#### 3. Reprocess Mode
+Reprocesses threads to extract new knowledge (useful when LLM extracts different insights):
+```bash
+npm run db:seed:reprocess
+```
+- 🔄 **Reprocesses existing threads**
+- 🧠 **LLM might extract different knowledge**
+- ✅ **Prevents duplicate knowledge pairs**
+- 📊 **Builds additional knowledge from same threads**
+
+#### 4. Mock Mode (Skips Gemini API)
 Uses predefined mock data without consuming API quota:
 ```bash
 npm run db:seed:mock
 ```
 
-#### 4. Local Mode (Skips All External APIs)
+#### 5. Local Mode (Skips All External APIs)
 Tests only PostgreSQL operations (fastest for development):
 ```bash
 npm run db:seed:local
@@ -93,7 +103,23 @@ SKIP_API_CALLS=true SKIP_PINECONE=true npm run db:seed
 |------|----------|-------------|
 | `npm run db:seed` | Normal development | Incremental, preserves existing |
 | `npm run db:seed:force` | Fresh start needed | Clears everything |
+| `npm run db:seed:reprocess` | Extract new knowledge from existing threads | Reprocesses, prevents duplicates |
 | `npm run db:seed:mock` | Testing without API costs | Uses mock data |
 | `npm run db:seed:local` | Fast development testing | PostgreSQL only |
+
+### Handling Edge Cases
+
+#### Fewer Than 5 Threads Available
+When you've processed most threads, you might have fewer than 5 available:
+- ✅ **Automatic handling**: Processes all available threads
+- ⚠️ **Warning message**: Alerts you when fewer than 5 threads remain
+- 💡 **Suggestions**: Recommends FORCE_RESET or REPROCESS options
+
+#### Threads That Might Produce New Information
+Even processed threads can yield new knowledge:
+- 🔄 **Reprocess mode**: `npm run db:seed:reprocess`
+- 🧠 **LLM variability**: Different insights each time
+- ✅ **Duplicate prevention**: Still prevents exact duplicates
+- 📊 **Additional knowledge**: Builds on existing knowledge base
 
 **Note**: The incremental mode is perfect for building a diverse knowledge base over time while respecting API quotas and preventing duplicates.

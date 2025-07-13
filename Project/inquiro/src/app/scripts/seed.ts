@@ -217,34 +217,51 @@ async function main() {
     
     if (existingData > 0) {
       // If data exists, select different threads for variety
-      console.log('   -> 🎲 Selecting different threads for variety...');
+      console.log('   -> 🎲 Selecting threads for variety...');
       
       // Get all available threads
       const allThreads = rawThreads;
       
-      // Get threads that have already been processed (by checking existing thread IDs)
-      const existingThreads = await prisma.thread.findMany({
-        select: { id: true }
-      });
-      const existingThreadIds = new Set(existingThreads.map(t => t.id));
+      // Check if we should reprocess threads (for new knowledge extraction)
+      const shouldReprocess = process.env.REPROCESS_THREADS === 'true';
       
-      // Filter out already processed threads
-      const availableThreads = allThreads.filter(thread => 
-        !existingThreadIds.has(thread.id)
-      );
-      
-      console.log(`   -> 📊 Found ${availableThreads.length} unprocessed threads out of ${allThreads.length} total`);
-      
-      if (availableThreads.length === 0) {
-        console.log('   -> ⚠️ All threads have been processed. Consider using FORCE_RESET=true to start fresh.');
-        return;
+      if (shouldReprocess) {
+        console.log('   -> 🔄 REPROCESS_THREADS=true: Will reprocess threads for new knowledge extraction');
+        // Use all threads for reprocessing (LLM might extract different knowledge)
+        threadsToProcess = allThreads.slice(0, 5);
+        console.log(`   -> 🎯 Selected ${threadsToProcess.length} threads for reprocessing`);
+      } else {
+        // Get threads that have already been processed (by checking existing thread IDs)
+        const existingThreads = await prisma.thread.findMany({
+          select: { id: true }
+        });
+        const existingThreadIds = new Set(existingThreads.map(t => t.id));
+        
+        // Filter out already processed threads
+        const availableThreads = allThreads.filter(thread => 
+          !existingThreadIds.has(thread.id)
+        );
+        
+        console.log(`   -> 📊 Found ${availableThreads.length} unprocessed threads out of ${allThreads.length} total`);
+        
+        if (availableThreads.length === 0) {
+          console.log('   -> ⚠️ All threads have been processed. Consider using FORCE_RESET=true to start fresh.');
+          console.log('   -> 💡 Or use REPROCESS_THREADS=true to reprocess threads for new knowledge extraction.');
+          return;
+        }
+        
+        // Select up to 5 different threads, or all available if less than 5
+        const threadsToSelect = Math.min(5, availableThreads.length);
+        threadsToProcess = availableThreads.slice(0, threadsToSelect);
+        
+        console.log(`   -> 🎯 Selected ${threadsToProcess.length} new threads for processing`);
+        
+        // If we have fewer than 5 threads, warn the user
+        if (threadsToSelect < 5) {
+          console.log(`   -> ⚠️ Only ${threadsToSelect} threads available (less than 5). Consider FORCE_RESET=true for more variety.`);
+          console.log('   -> 💡 Or use REPROCESS_THREADS=true to reprocess existing threads for new knowledge.');
+        }
       }
-      
-      // Select up to 5 different threads, or all available if less than 5
-      const threadsToSelect = Math.min(5, availableThreads.length);
-      threadsToProcess = availableThreads.slice(0, threadsToSelect);
-      
-      console.log(`   -> 🎯 Selected ${threadsToProcess.length} new threads for processing`);
     } else {
       // If no data exists, use the original logic
       threadsToProcess = SKIP_API_CALLS ? rawThreads.slice(0, 1) : rawThreads.slice(0, 5);
